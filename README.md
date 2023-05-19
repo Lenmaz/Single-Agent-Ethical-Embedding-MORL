@@ -1,6 +1,7 @@
 # Multi-Objective Reinforcement Learning for Designing Ethical Environments
 
-Code for the paper Multi-Objective Reinforcement Learning for Designing Ethical Environments, presented at the 30th International Joint Conference on Artificial Intelligence (IJCAI-21).
+Code for the paper "Multi-Objective Reinforcement Learning for Designing Ethical Environments", presented at the 30th International Joint Conference on Artificial Intelligence (IJCAI-21). It is also the code for its extended journal paper "Instilling moral value alignment by means of multi‑objective 
+reinforcement learning" published online in 2022 in the Ethics and Information Technology Journal.
 
 Authors: Manel Rodriguez-Soto, Maite Lopez-Sanchez, Juan Antonio Rodriguez-Aguilar.
 
