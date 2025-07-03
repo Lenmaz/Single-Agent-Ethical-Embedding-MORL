@@ -24,6 +24,7 @@ see the results shown in Section 5 of our paper.
 - ValuesNorms.py saves the ethical knowledge that we want the agents to learn.
 - convexhull.py implements an algorithm to calculate a 2-D positive convex hull.
 - CHVI.py implements the (partial) convex hull value iteration algorithm.
+- OLS.py implements the Optimistic Linear Support algorithm
 
 - Learning.py implements the q-learning algorithm for comparison. In this file you can see the policy that the agent
   ultimately learns after the ethical environment has been designed. As expected, the agent learns to behave ethically.
