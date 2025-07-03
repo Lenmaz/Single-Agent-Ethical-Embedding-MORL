@@ -1,5 +1,9 @@
 from CHVI import partial_convex_hull_value_iteration
+from OLS import OLS
 import numpy as np
+
+
+use_OLS = True # if False, use CHVI
 
 
 def ethical_embedding_state(hull):
@@ -67,15 +71,21 @@ def Ethical_Environment_Designer(env, epsilon, discount_factor=1.0, max_iteratio
     :return: the ethical weight that solves the ethical embedding problem
     """
 
-    hull = partial_convex_hull_value_iteration(env, discount_factor, max_iterations)
+    if use_OLS:
+        hull = OLS(env)
+    else:
+        hull = partial_convex_hull_value_iteration(env, discount_factor, max_iterations)[10][11][8]
 
     print("-----")
     print("Partial Convex hull of the initial state s_0:")
-    print(hull[10][11][8])
+    print(hull)
     print("-----")
-    print("Ethical weight for initial state s_0: ", ethical_embedding_state(hull[10][11][8]))
+
+    ethical_weight = ethical_embedding_state(np.array(hull))
+    print("Ethical weight for initial state s_0: ", ethical_weight)
     print("-----")
-    ethical_weight = ethical_embedding(hull, epsilon)
+
+    #ethical_weight = ethical_embedding(hull, epsilon)
 
     return ethical_weight
 

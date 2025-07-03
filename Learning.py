@@ -107,7 +107,7 @@ def deterministic_optimal_policy_calculator(Q, env, weights):
     return policy
 
 
-def choose_action(st, eps, q_table, weights, infoQ):
+def choose_action(env, st, eps, q_table, weights, infoQ):
     """
 
     :param st: the current state in the environment
@@ -132,7 +132,7 @@ def choose_action(st, eps, q_table, weights, infoQ):
 
         return possible_actions[np.random.randint(len(possible_actions))]
 
-def update_q_table(q_table, alpha, gamma, action, state, new_state, reward):
+def update_q_table(env, weights, q_table, alpha, gamma, action, state, new_state, reward):
 
     for objective in range(len(reward)):
         best_action = np.argmax(scalarised_Qs(env, q_table[new_state[0], new_state[1], new_state[2]], weights))
@@ -193,7 +193,7 @@ def q_learning(env, weights, alpha=0.8, gamma=0.7):
             step_count += 1
             actions = list()
 
-            actions.append(choose_action(state, epsilon, Q, weights, infoQ))
+            actions.append(choose_action(env, state, epsilon, Q, weights, infoQ))
             infoQ[state[0],state[1],state[2]] += 1.0
 
             if state[0] == 10 and state[1] == 11 and state[2] == 8:
@@ -213,7 +213,7 @@ def q_learning(env, weights, alpha=0.8, gamma=0.7):
             R_big[0] += reward[0]*(gamma**(step_count-1))
             R_big[1] += reward[1]*(gamma**(step_count-1))
 
-            update_q_table(Q, alpha, gamma, actions[0], state, new_state, reward)
+            update_q_table(env, weights, Q, alpha, gamma, actions[0], state, new_state, reward)
 
             state = new_state
             done = dones[0]
