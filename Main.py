@@ -72,32 +72,35 @@ def Ethical_Environment_Designer(env, epsilon, discount_factor=1.0, max_iteratio
     """
 
     if use_OLS:
-        hull = OLS(env)
+        hull_state = OLS(env)
     else:
-        hull = partial_convex_hull_value_iteration(env, discount_factor, max_iterations)[10][11][8]
+        hull = partial_convex_hull_value_iteration(env, discount_factor, max_iterations)
+        hull_state = hull[10][11][8]
 
     print("-----")
     print("Partial Convex hull of the initial state s_0:")
-    print(hull)
+    print(hull_state)
     print("-----")
 
-    ethical_weight = ethical_embedding_state(np.array(hull))
+    ethical_weight = ethical_embedding_state(np.array(hull_state))
     print("Ethical weight for initial state s_0: ", ethical_weight)
     print("-----")
 
-    #ethical_weight = ethical_embedding(hull, epsilon)
+    if not use_OLS:  # ONLY for CHVI
+        ethical_weight = ethical_embedding(hull, epsilon)
+        print("Ethical weight for all states: ", ethical_weight)
 
-    return ethical_weight
+    return ethical_weight + epsilon
 
 
 if __name__ == "__main__":
 
     from Environment import Environment
     env = Environment()
-    epsilon = 0.1
+    epsilon = 0.01
     discount_factor = 0.7
     max_iterations = 5
 
     w_E = Ethical_Environment_Designer(env, epsilon, discount_factor, max_iterations)
 
-    print("Ethical weight if every state can be initial: ", w_E)
+    print("Ethical weight to choose: ", w_E)
