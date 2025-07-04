@@ -20,7 +20,7 @@ def Q_function_calculator(env, state, V, discount_factor):
     hulls = list()
 
     initial_state = state[0] == 10 and state[1] == 11 and state[2] == 8
-    if not initial_state:
+    if not initial_state or env.is_deterministic:
         for action in env.all_actions:
 
             env.hard_reset(state_translated[0], state_translated[1], state_translated[2])
